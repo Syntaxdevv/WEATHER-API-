@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+  <nav class="navbar">
+
+    <div class="nav-logo">
+      WEATHER<em>/ UPDATE</em>
+    </div>
+ <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="zip.html">ZIP Finder</a></li>
+    <li><a href="countries.html">Countries</a></li>
+  </ul>
+
+    <div class="nav-right">
+      <div id="clock"></div>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+
+  </nav>
+  <div class="search">
+    <input
+      id="cityInput"
+      type="text"
+      placeholder="Search for a city..."
+      onkeydown="if(event.key === 'Enter') getWeather()"
+    />
+    <button onclick="getWeather()">Search</button>
+  </div>
+  <div class="page">
+
+    <aside class="sidebar">
+
+      <div class="card">
+
+        <div class="city-row">
+          <div class="live"></div>
+          <div id="city">—</div>
+        </div>
+
+        <div id="country">—</div>
+
+        <div class="temp-block">
+          <div id="temp">—</div>
+
+          <div class="wx-right">
+            <div id="icon"></div>
+            <div id="desc"></div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-lbl">Humidity</div>
+            <div class="stat-val" id="hum">—</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-lbl">Wind</div>
+            <div class="stat-val" id="wind">—</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-lbl">Feels Like</div>
+            <div class="stat-val" id="feel">—</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-lbl">Visibility</div>
+            <div class="stat-val" id="vis">—</div>
+          </div>
+
+          <div class="stat full">
+            <div class="stat-lbl">Pressure</div>
+            <div class="stat-val" id="pressure">—</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card heat-card">
+        <div class="stat-lbl">🔥 Heat Index</div>
+        <div class="stat-val" id="heatIndex">—</div>
+        <div id="heatLevel"></div>
+      </div>
+      <div class="card alert-card" id="alert">
+        <div class="al-icon" id="alertIcon">⚠️</div>
+        <div>
+          <div class="al-title" id="alertTitle"></div>
+          <div class="al-msg" id="alertMsg"></div>
+        </div>
+      </div>
+
+      <div class="card decision-card">
+  <div class="stat-lbl">🧠 Smart Suggestions</div>
+  <div id="decisionBox"></div>
+</div>
+
+      <div class="card info-tile">
+        <div class="tile-icon">🌅</div>
+        <div>
+          <div class="tile-lbl">Sunrise</div>
+          <div class="tile-val" id="sunrise"></div>
+        </div>
+      </div>
+
+      <div class="card info-tile">
+        <div class="tile-icon">🌤️</div>
+        <div>
+          <div class="tile-lbl">Condition</div>
+          <div class="tile-val" id="conditionExtra"></div>
+        </div>
+      </div>
+
+    </aside>
+
+    <div class="main-col">
+
+      <div class="card map-card">
+        <div id="map"></div>
+      </div>
+
+      <div class="card">
+        <div class="fc-lbl">7-Day Forecast</div>
+        <div id="forecast"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+
+</body>
+</html>
