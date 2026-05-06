@@ -12,22 +12,22 @@
 
 <body>
   <nav class="navbar">
-
     <div class="nav-logo">
       WEATHER<em>/ UPDATE</em>
     </div>
- <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="zip.html">ZIP Finder</a></li>
-    <li><a href="countries.html">Countries</a></li>
-  </ul>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="zip.html">ZIP Finder</a></li>
+      <li><a href="countries.html">Countries</a></li>
+    </ul>
 
     <div class="nav-right">
       <div id="clock"></div>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
     </div>
-
   </nav>
+
   <div class="search">
     <input
       id="cityInput"
@@ -37,12 +37,12 @@
     />
     <button onclick="getWeather()">Search</button>
   </div>
+
   <div class="page">
 
     <aside class="sidebar">
 
       <div class="card">
-
         <div class="city-row">
           <div class="live"></div>
           <div id="city">—</div>
@@ -87,7 +87,6 @@
             <div class="stat-val" id="pressure">—</div>
           </div>
         </div>
-
       </div>
 
       <div class="card heat-card">
@@ -95,6 +94,7 @@
         <div class="stat-val" id="heatIndex">—</div>
         <div id="heatLevel"></div>
       </div>
+
       <div class="card alert-card" id="alert">
         <div class="al-icon" id="alertIcon">⚠️</div>
         <div>
@@ -104,16 +104,13 @@
       </div>
 
       <div class="card decision-card">
-  <div class="stat-lbl">🧠 Smart Suggestions</div>
-  <div id="decisionBox"></div>
-</div>
-
-      
+        <div class="stat-lbl">🧠 Smart Suggestions</div>
+        <div id="decisionBox"></div>
+      </div>
 
     </aside>
 
     <div class="main-col">
-
       <div class="card map-card">
         <div id="map"></div>
       </div>
@@ -122,11 +119,10 @@
         <div class="fc-lbl">7-Day Forecast</div>
         <div id="forecast"></div>
       </div>
-
     </div>
+
   </div>
 
   <script src="js/app.js"></script>
-
 </body>
 </html>
