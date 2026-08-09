@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -305,36 +306,43 @@ nav,
 }
 
 .heat-card {
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-left: 3px solid #fb923c;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: none;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #fb923c;
 }
 
 .heat-card::before {
-    display: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at top right,
+        rgba(251, 146, 60, 0.25),
+        transparent 60%
+    );
+    pointer-events: none;
 }
+
 .heat-card .stat-lbl {
     font-size: 0.8rem;
     opacity: 0.7;
-}
-
-#heatLevel {
-    margin-top: 5px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #fb923c;
 }
 
 #heatIndex {
     margin-top: 5px;
     font-size: 2rem;
     font-weight: 700;
-    color: #fb923c;
-    background: none;
-    -webkit-background-clip: initial;
-    background-clip: initial;
+    background: linear-gradient(135deg, #fb923c, #ef4444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#heatLevel {
+    margin-top: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
 
 .heat-danger {
     animation: heatPulse 1s infinite;
@@ -368,9 +376,8 @@ nav,
     align-items: center;
     gap: 8px;
     padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
     font-size: 0.9rem;
 }
 
