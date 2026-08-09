@@ -4,7 +4,6 @@ let radarCircle, radarInterval;
 let currentLat = 15.145;
 let currentLon = 120.5887;
 
-// Function to get the users current location using the Geolocation API
 function getUserLocation() {
   if (!navigator.geolocation) {
     loadDefaultCity();
@@ -19,21 +18,18 @@ function getUserLocation() {
       initMap();
       fetchWeatherByCoords(currentLat, currentLon);
       startRadar(currentLat, currentLon);
-      console.log("LOCATION:", { latitude: currentLat, longitude: currentLon }); // Fixed logging
+      console.log("LOCATION:", { latitude: currentLat, longitude: currentLon });
     },
     () => loadDefaultCity(),
     { enableHighAccuracy: true, timeout: 6000 }
   );
 }
 
-// Function to load the default city
 function loadDefaultCity() {
   initMap();
   document.getElementById("cityInput").value = "Angeles";
   getWeather();
 }
-
-// Function to update the clock
 function updateClock() {
   const now = new Date();
 
@@ -54,7 +50,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Function to toggle between light and dark themes
 function toggleTheme() {
   const html = document.documentElement;
   const btn = document.getElementById("themeBtn");
@@ -68,8 +63,6 @@ function toggleTheme() {
 
   setTimeout(() => map?.invalidateSize(), 200);
 }
-
-// Function to initialize the map with the current location
 function initMap() {
   if (!window.L) return;
 
@@ -92,8 +85,6 @@ function initMap() {
     fetchWeatherByCoords(lat, lng);
   });
 }
-
-// Function to create a custom icon for the map marker
 function makeIcon() {
   return L.divIcon({
     html: `<div style="
@@ -107,8 +98,6 @@ function makeIcon() {
     className: ""
   });
 }
-
-// Function to move the map to a new location and update the marker
 function moveMap(lat, lon) {
   currentLat = lat;
   currentLon = lon;
@@ -123,13 +112,11 @@ function moveMap(lat, lon) {
 
   startRadar(lat, lon);
 }
-
-// Function to start a radar animation on the map
 function startRadar(lat, lon) {
   if (!map) return;
 
   if (radarCircle) map.removeLayer(radarCircle);
-  if (radarGlow) map.removeLayer(radarGlow); // ✅ ADD THIS
+  if (radarGlow) map.removeLayer(radarGlow);
   if (radarInterval) clearInterval(radarInterval);
 
   let radius = 500;
@@ -173,7 +160,6 @@ function startRadar(lat, lon) {
   }, 80);
 }
 
-// Function to fetch weather data
 async function fetchWeatherByCoords(lat, lon) {
   const res = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
@@ -200,8 +186,6 @@ renderWeather(data, loc.name, loc.country, loc.region);
 
   
 }
-
-// Function to get the location name
 async function getLocationName(lat, lon) {
   try {
     const res = await fetch(
@@ -228,8 +212,6 @@ async function getLocationName(lat, lon) {
     return { name: "Unknown", country: "", region: "" };
   }
 }
-
-// Function to fetch weather data for a city entered by the user
 async function getWeather() {
   const city = document.getElementById("cityInput").value.trim();
   if (!city) return;
@@ -345,8 +327,6 @@ function renderWeather(data, name, country, region) {
 
   showHeatPopup(hw);
   renderForecast(d);
-
-  // ✅ SMART DECISIONS (FIXED)
   const decisions = generateSmartDecisions(
     c.temperature_2m,
     c.apparent_temperature,
@@ -416,36 +396,25 @@ function generateSmartDecisions(temp, feels, code, wind, humidity) {
   const isWarm = temp >= 26 && temp < 32;
   const isRainy = code >= 51 && code <= 82;
   const isWindy = wind > 25;
-
-  // 🌧️ Rain logic
+  
   if (isRainy) {
     decisions.push("☂️ Bring an umbrella");
     decisions.push("🏠 Better stay indoors");
   }
-
-  // 🔥 Heat logic
   if (isHot) {
     decisions.push("🥵 Avoid going out at noon");
     decisions.push("💧 Drink more water");
   }
-
-  // 🌤️ Good weather
   if (isWarm && !isRainy) {
     decisions.push("🏃 Perfect time for jogging");
     decisions.push("📸 Great weather for photos");
   }
-
-  // 🌬️ Wind
   if (isWindy) {
     decisions.push("🌬️ It's windy—secure loose items");
   }
-
-  // 💦 Humidity
   if (humidity > 80) {
     decisions.push("😓 High humidity—expect discomfort");
   }
-
-  // 👕 Outfit suggestion (important!)
   if (isRainy) {
     decisions.push("🧥 Wear light jacket");
   } else if (isHot) {
